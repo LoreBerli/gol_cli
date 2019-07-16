@@ -3,6 +3,7 @@ import urwid
 class View():
 
     def __init__(self,state,g):
+        self.loader = urwid.Edit("path to file : ")
 
         infoBox = urwid.Text(
             "Conway's Game Of Life.\n Use + and - to speed up or slow down the simulation\n You can 'turn on' cells with your left click and 'kill' them with the right one")
@@ -16,8 +17,7 @@ class View():
         self.prog.update(self.speed)
         self.pause=False
         but = self.get_buttons()
-        loader = urwid.Edit("path to file : ")
-        load_tile = urwid.LineBox(loader)
+        load_tile = urwid.LineBox(self.loader)
         pil = urwid.Pile([self.sta] + [self.prog] + [but] + [infoBox] + [load_tile])
         col = urwid.Columns([('weight', 3, self.widget), ('weight', 1.5, pil)], 2)
         ln = urwid.LineBox(col, "Conway's GOL")
@@ -72,18 +72,21 @@ class View():
 
         def load(_):
 
-
-            self.widget.load()
+            path=self.loader.get_edit_text()
+            self.widget.load(path)
 
         def save(_):
-
-            self.widget.save()
+            path = self.loader.get_edit_text()
+            if(path==""):
+                path="temp"
+            self.widget.save(path)
 
         pause = urwid.Button("PAUSE", on_press=sw)
         ex = urwid.Button("EXIT", on_press=quit)
         clear = urwid.Button("CLEAR", on_press=clear_grid)
         rand = urwid.Button("RANDOMIZE", on_press=randomize)
         place = urwid.Button("LOAD", on_press=load)
+
         lace = urwid.Button("SAVE", on_press=save)
         spm = urwid.Button("SPEED +", on_press=self.speed_up_simulation)
         spl = urwid.Button("SPEED -", on_press=self.slow_down_simulation)
@@ -136,13 +139,15 @@ class Cool_grid(urwid.Text):
         if(row < self.gr.H and col < self.gr.W and button==3):
             self.gr.set_cell(row,col,0)
 
-    def load(self,path=None):
-
-        self.gr=self.gr.load()
+    def load(self,path="temp"):
+        try:
+            self.gr=self.gr.load_grid(path)
+        except:
+            pass
         self.gr.update()
         sf = self.gr.pretty_grid()
         self.base_widget.set_text(('streak', sf))
 
 
-    def save(self,path=None):
-        self.gr.save()
+    def save(self,path):
+        self.gr.save(path)

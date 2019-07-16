@@ -94,16 +94,16 @@ class grid:
         #self.cells=np.random.randint(0,2,size=[H,W],dtype=np.int)
         self.cells = np.zeros(shape=[self.H,self.W],dtype=np.int)
 
-    def load(self):
+    def load_grid(self, path):
 
-        fl=open("saved",'rb')
+        fl=open(path,'rb')
         g = pickle.load(fl)
-
         fl.close()
+
         return g
 
-    def save(self):
-        fl = open("saved",'wb')
+    def save(self,path):
+        fl = open(path,'wb')
         pickle.dump(self,fl,-1)
         fl.close()
 
