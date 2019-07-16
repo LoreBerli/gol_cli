@@ -20,7 +20,6 @@ def handle_click(cl_event,gr):
     return
 
 def main():
-
     g = grid.grid(40,120)
     ml = Model(g)
     vw=view.View(ml,g)

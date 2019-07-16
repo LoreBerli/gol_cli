@@ -21,7 +21,7 @@ class View():
         pil = urwid.Pile([self.sta] + [self.prog] + [but] + [infoBox] + [load_tile])
         col = urwid.Columns([('weight', 3, self.widget), ('weight', 1.5, pil)], 2)
         ln = urwid.LineBox(col, "Conway's GOL")
-        mapa = urwid.AttrMap(ln, 'bg')
+        #mapa = urwid.AttrMap(ln, 'bg')
         self.fill = urwid.Filler(ln, 'middle')
 
         self.palette=[('inside', 'black', 'dark green','standout'),('streak', 'dark green', 'black'), ('bg', 'dark green', 'black'),]

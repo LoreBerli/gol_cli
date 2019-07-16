@@ -115,16 +115,16 @@ class grid:
 
 
 
-def test():
-    g = grid(10,10)
-    for i in range(0,10):
-        gf=g.pretty_grid()
-        print(gf)
-        g.update()
-    g.save()
-    g=g.load()
-    gf=g.pretty_grid()
-    print(gf)
+# def test():
+#     g = grid(10,10)
+#     for i in range(0,10):
+#         gf=g.pretty_grid()
+#         print(gf)
+#         g.update()
+#     g.save()
+#     g=g.load()
+#     gf=g.pretty_grid()
+#     print(gf)
 
 
 
